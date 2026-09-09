@@ -1,0 +1,309 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Xperts Crop</title>
+
+    <link rel="stylesheet" href="crop.css">
+</head>
+
+<body>
+
+    <!-- =====================================
+         HOME
+    ====================================== -->
+
+    <div id="home">
+
+        <h1>🌾 Xperts Crop  </h1>
+
+        <p>Early Detection of Crop Diseases</p>
+
+        <p><strong>[ आधुनिक पहचान उपकरण ]</strong></p>
+
+        <button onclick="startDiagnosis()">
+            Start Inspection
+        </button>
+
+    </div>
+
+
+    <!-- =====================================
+         LANGUAGE
+    ====================================== -->
+
+    <div id="language" style="display:none;">
+
+        <h2>Choose Your Language</h2>
+
+        <h2>अपनी भाषा चुनें</h2>
+
+        <button onclick="selectLanguage('English')">
+            English
+        </button>
+
+        <button onclick="selectLanguage('Hindi')">
+            हिंदी
+        </button>
+
+    </div>
+
+
+    <!-- =====================================
+         STATE
+    ====================================== -->
+
+    <div id="state" style="display:none;">
+
+        <h2>🇮🇳 Select Your State / UT</h2>
+
+        <select id="stateSelect">
+
+            <option value="">
+                -- Select State / UT --
+            </option>
+
+        </select>
+
+        <br><br>
+
+        <button onclick="selectState()">
+            Next
+        </button>
+
+    </div>
+
+
+    <!-- =====================================
+         DISTRICT
+    ====================================== -->
+
+    <div id="district" style="display:none;">
+
+        <h2>📍 Select Your District</h2>
+
+        <select id="districtSelect">
+
+            <option value="">
+                -- Select District --
+            </option>
+
+        </select>
+
+        <br><br>
+
+        <button onclick="selectDistrict()">
+            Next
+        </button>
+
+    </div>
+
+
+    <!-- =====================================
+         WEATHER
+    ====================================== -->
+
+    <div id="weather" style="display:none;">
+
+        <h2>🌦️ Current Weather</h2>
+
+        <p id="weatherLocation">-</p>
+
+        <div class="weather-card">
+
+            <div class="weather-main">
+
+                <span id="weatherIcon">
+                    🌤️
+                </span>
+
+                <span id="weatherTemperature">
+                    --°C
+                </span>
+
+            </div>
+
+            <p>
+                <strong>Condition:</strong>
+                <span id="weatherCondition">-</span>
+            </p>
+
+            <p>
+                <strong>Humidity:</strong>
+                <span id="weatherHumidity">-</span>
+            </p>
+
+            <p>
+                <strong>Wind:</strong>
+                <span id="weatherWind">-</span>
+            </p>
+
+            <p>
+                <strong>Rain:</strong>
+                <span id="weatherRain">-</span>
+            </p>
+
+        </div>
+
+        <p id="weatherStatus">
+            Loading current weather...
+        </p>
+
+        <button onclick="continueToCrop()">
+            Continue to Crop Selection
+        </button>
+
+    </div>
+
+
+    <!-- =====================================
+         CROP
+    ====================================== -->
+
+    <div id="crop" style="display:none;">
+
+        <h2>🌱 Select Your Crop</h2>
+
+        <select id="cropSelect">
+
+            <option value="">
+                -- Select Crop --
+            </option>
+
+            <option value="Apple">🍎 Apple</option>
+            <option value="Blueberry">🫐 Blueberry</option>
+            <option value="Cherry">🍒 Cherry</option>
+            <option value="Corn">🌽 Corn</option>
+            <option value="Grape">🍇 Grape</option>
+            <option value="Orange">🍊 Orange</option>
+            <option value="Peach">🍑 Peach</option>
+            <option value="Pepper">🌶️ Bell Pepper</option>
+            <option value="Potato">🥔 Potato</option>
+            <option value="Raspberry">🫐 Raspberry</option>
+            <option value="Soybean">🌱 Soybean</option>
+            <option value="Squash">🎃 Squash</option>
+            <option value="Strawberry">🍓 Strawberry</option>
+            <option value="Tomato">🍅 Tomato</option>
+
+        </select>
+
+        <br><br>
+
+        <button onclick="selectCrop()">
+            Next
+        </button>
+
+    </div>
+
+
+    <!-- =====================================
+         IMAGE UPLOAD
+    ====================================== -->
+
+    <div id="upload" style="display:none;">
+
+        <h2>Upload Crop Image</h2>
+
+        <p>
+            Take a clear photo of the affected crop leaf.
+        </p>
+
+        <input
+            type="file"
+            id="cropImage"
+            accept="image/*"
+            onchange="previewImage()"
+        >
+
+        <br><br>
+
+        <div class="scan-container">
+
+            <img
+                id="imagePreview"
+                style="display:none;"
+            >
+
+            <div id="scanLine"></div>
+
+            <div id="scanMessage">
+                🔍 Scanning crop...
+            </div>
+
+        </div>
+
+        <br>
+
+        <button onclick="analyzeCrop()">
+            Analyze Crop
+        </button>
+
+    </div>
+
+
+    <!-- =====================================
+         RESULT
+    ====================================== -->
+
+    <div id="result" style="display:none;">
+
+        <h2>
+            🌱 Crop Disease Result
+        </h2>
+
+        <img id="resultImage">
+
+        <div class="result-card">
+
+            <p>
+                <strong>State:</strong>
+                <span id="resultState">-</span>
+            </p>
+
+            <p>
+                <strong>District:</strong>
+                <span id="resultDistrict">-</span>
+            </p>
+
+            <p>
+                <strong>Crop:</strong>
+                <span id="resultCrop">-</span>
+            </p>
+
+            <p>
+                <strong>Possible Disease:</strong>
+                <span id="resultDisease">-</span>
+            </p>
+
+            <p>
+                <strong>Confidence:</strong>
+                <span id="resultConfidence">-</span>
+            </p>
+
+            <p>
+                <strong>Risk Level:</strong>
+                <span id="resultRisk">-</span>
+            </p>
+
+            <h3>
+                💡 Recommendation
+            </h3>
+
+            <p id="resultRecommendation">
+                -
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <script src="cropjs.js"></script>
+
+</body>
+</html>
+
